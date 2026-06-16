@@ -8,42 +8,39 @@
 </head>
 <body>
 
-  <!-- Header -->
   <header class="header">
-    <span class="logo">📌 PostIt Casa</span>
+    <div class="header-left">
+      <span class="header-pin">&#x2756;</span>
+      <span class="logo">PostIt Casa</span>
+    </div>
     <span class="subtitulo">Painel</span>
   </header>
 
-  <!-- Lista de bilhetes -->
   <main class="lista" id="lista">
-    <div class="carregando" id="carregando">Carregando...</div>
+    <div class="carregando">Carregando...</div>
   </main>
 
-  <!-- Botão flutuante -->
   <button class="fab" id="btnNovo" title="Novo bilhete">+</button>
 
-  <!-- Modal -->
   <div class="overlay" id="overlay" hidden>
     <div class="modal">
       <div class="modal-header">
         <h2 id="modal-titulo">Novo Bilhete</h2>
-        <button class="btn-fechar" id="btnFechar">✕</button>
+        <button class="btn-fechar" id="btnFechar">&times;</button>
       </div>
 
       <form id="form" novalidate>
         <input type="hidden" id="bilheteId" />
 
-        <!-- Tipo -->
         <div class="campo">
           <label for="tipo">Tipo</label>
           <select id="tipo" required>
-            <option value="recado">📝 Recado</option>
-            <option value="lista">✅ Lista</option>
-            <option value="reuniao">📅 Reunião</option>
+            <option value="recado">&#x270E; Recado</option>
+            <option value="lista">&#x2630; Lista</option>
+            <option value="reuniao">&#x25F7; Reuni&atilde;o</option>
           </select>
         </div>
 
-        <!-- Cor -->
         <div class="campo">
           <label>Cor</label>
           <div class="cores">
@@ -55,31 +52,26 @@
           </div>
         </div>
 
-        <!-- Titulo -->
         <div class="campo">
-          <label for="titulo">Título</label>
-          <input type="text" id="titulo" placeholder="Ex: Compras do mês" maxlength="100" required />
+          <label for="titulo">T&iacute;tulo</label>
+          <input type="text" id="titulo" placeholder="Ex: Compras do m&ecirc;s" maxlength="100" required />
         </div>
 
-        <!-- Autor -->
         <div class="campo">
           <label for="autor">Autor</label>
           <input type="text" id="autor" placeholder="Seu nome" maxlength="50" required />
         </div>
 
-        <!-- Mensagem (recado / reuniao) -->
         <div class="campo" id="campo-mensagem">
           <label for="mensagem">Mensagem</label>
           <textarea id="mensagem" placeholder="Escreva sua mensagem..." rows="3"></textarea>
         </div>
 
-        <!-- Horário (reuniao) -->
         <div class="campo" id="campo-horario" hidden>
-          <label for="horario">Data e horário</label>
+          <label for="horario">Data e hor&aacute;rio</label>
           <input type="datetime-local" id="horario" />
         </div>
 
-        <!-- Itens da lista -->
         <div class="campo" id="campo-lista" hidden>
           <label>Itens</label>
           <div class="itens-wrapper" id="itens-wrapper"></div>
@@ -88,7 +80,7 @@
 
         <div class="erro" id="erro" hidden></div>
 
-        <button type="submit" class="btn-salvar" id="btnSalvar">Salvar bilhete</button>
+        <button type="submit" class="btn-salvar">Salvar bilhete</button>
       </form>
     </div>
   </div>

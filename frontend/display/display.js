@@ -17,7 +17,7 @@ function formatarData(iso) {
   });
 }
 
-const BADGES = { recado: '📝 Recado', lista: '✅ Lista', reuniao: '📅 Reunião' };
+const BADGES = { recado: '✎ Recado', lista: '☰ Lista', reuniao: '◷ Reunião' };
 
 function criarPostit(b) {
   const rot = rand(ROTACOES);
@@ -35,7 +35,7 @@ function criarPostit(b) {
   } else if (b.tipo === 'reuniao') {
     conteudo = `
       ${b.mensagem ? `<p class="postit-mensagem">${b.mensagem}</p>` : ''}
-      <span class="postit-horario">🕐 ${formatarData(b.horario)}</span>
+      <span class="postit-horario">◷ ${formatarData(b.horario)}</span>
     `;
   } else {
     conteudo = b.mensagem ? `<p class="postit-mensagem">${b.mensagem}</p>` : '';
@@ -64,7 +64,7 @@ async function carregar() {
     mural.innerHTML = '';
 
     if (bilhetes.length === 0) {
-      mural.innerHTML = '<p class="vazio">Nenhum bilhete ainda.<br>Crie um pelo celular! 📱</p>';
+      mural.innerHTML = '<p class="vazio">Nenhum bilhete ainda.<br>Crie um pelo celular.</p>';
     } else {
       bilhetes.forEach(b => mural.appendChild(criarPostit(b)));
     }

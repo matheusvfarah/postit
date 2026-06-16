@@ -1,35 +1,31 @@
 const API_URL = 'http://localhost:3000/bilhetes';
 const INTERVALO = 30000;
 
-const ROTACOES = [-3, -1.5, 0, 1.5, 3, -2, 2];
+const ROTACOES  = [-4, -2.5, -1.5, 0, 1.5, 2.5, 4, -3, 3];
+const IMAS      = ['vermelho', 'azul-ima', 'verde-ima', 'roxo', 'laranja-ima', 'prata'];
 
-function rotacaoAleatoria() {
-  return ROTACOES[Math.floor(Math.random() * ROTACOES.length)];
+function rand(arr) {
+  return arr[Math.floor(Math.random() * arr.length)];
 }
 
-function formatarData(isoString) {
-  if (!isoString) return '';
-  const d = new Date(isoString);
+function formatarData(iso) {
+  if (!iso) return '';
+  const d = new Date(iso);
   return d.toLocaleDateString('pt-BR', {
-    weekday: 'short',
-    day: '2-digit',
-    month: '2-digit',
-    year: 'numeric',
-    hour: '2-digit',
-    minute: '2-digit',
+    weekday: 'short', day: '2-digit', month: '2-digit',
+    hour: '2-digit', minute: '2-digit',
   });
 }
 
-function iconesTipo(tipo) {
-  const icones = { recado: '📝 Recado', lista: '✅ Lista', reuniao: '📅 Reunião' };
-  return icones[tipo] || tipo;
-}
+const BADGES = { recado: '📝 Recado', lista: '✅ Lista', reuniao: '📅 Reunião' };
 
-function renderizarBilhete(b) {
-  const rot = rotacaoAleatoria();
-  const div = document.createElement('div');
-  div.className = `postit ${b.cor}`;
-  div.style.setProperty('--rot', `${rot}deg`);
+function criarPostit(b) {
+  const rot = rand(ROTACOES);
+  const ima = rand(IMAS);
+
+  const el = document.createElement('div');
+  el.className = `postit ${b.cor}`;
+  el.style.setProperty('--rot', `${rot}deg`);
 
   let conteudo = '';
 
@@ -45,48 +41,49 @@ function renderizarBilhete(b) {
     conteudo = b.mensagem ? `<p class="postit-mensagem">${b.mensagem}</p>` : '';
   }
 
-  div.innerHTML = `
-    <span class="postit-tipo">${iconesTipo(b.tipo)}</span>
+  el.innerHTML = `
+    <div class="ima ${ima}"></div>
+    <span class="postit-tipo">${BADGES[b.tipo] || b.tipo}</span>
     <h2 class="postit-titulo">${b.titulo}</h2>
     ${conteudo}
     <span class="postit-autor">— ${b.autor}</span>
   `;
 
-  return div;
+  return el;
 }
 
-async function carregarBilhetes() {
-  const mural = document.getElementById('mural');
+async function carregar() {
+  const mural  = document.getElementById('mural');
   const status = document.getElementById('status');
 
   try {
     const resp = await fetch(API_URL);
-    if (!resp.ok) throw new Error('Falha na requisição');
+    if (!resp.ok) throw new Error();
     const bilhetes = await resp.json();
 
     mural.innerHTML = '';
 
     if (bilhetes.length === 0) {
-      mural.innerHTML = '<p class="vazio">Nenhum bilhete ainda. Crie um pelo celular! 📱</p>';
+      mural.innerHTML = '<p class="vazio">Nenhum bilhete ainda.<br>Crie um pelo celular! 📱</p>';
     } else {
-      bilhetes.forEach(b => mural.appendChild(renderizarBilhete(b)));
+      bilhetes.forEach(b => mural.appendChild(criarPostit(b)));
     }
 
-    const agora = new Date().toLocaleTimeString('pt-BR');
-    status.textContent = `Última atualização: ${agora} · Próxima em 30 segundos`;
-  } catch (err) {
-    status.textContent = 'Erro ao conectar com o servidor. Tentando novamente...';
+    const hora = new Date().toLocaleTimeString('pt-BR');
+    status.textContent = `Atualizado às ${hora} · próxima atualização em 30s`;
+  } catch {
+    status.textContent = 'Sem conexão com o servidor...';
   }
 }
 
-function atualizarRelogio() {
+function tickRelogio() {
   const el = document.getElementById('relogio');
-  const agora = new Date();
-  el.textContent = agora.toLocaleTimeString('pt-BR', { hour: '2-digit', minute: '2-digit', second: '2-digit' });
+  el.textContent = new Date().toLocaleTimeString('pt-BR', {
+    hour: '2-digit', minute: '2-digit', second: '2-digit',
+  });
 }
 
-carregarBilhetes();
-atualizarRelogio();
-
-setInterval(carregarBilhetes, INTERVALO);
-setInterval(atualizarRelogio, 1000);
+carregar();
+tickRelogio();
+setInterval(carregar, INTERVALO);
+setInterval(tickRelogio, 1000);

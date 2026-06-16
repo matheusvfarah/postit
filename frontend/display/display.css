@@ -5,76 +5,128 @@
 }
 
 :root {
-  --amarelo: #FFE066;
+  --amarelo: #FFE566;
   --rosa:    #FF8FAB;
-  --verde:   #A8E6A3;
-  --azul:    #90CAF9;
-  --laranja: #FFAB40;
+  --verde:   #B5EAD7;
+  --azul:    #93CAED;
+  --laranja: #FFB347;
 
-  --amarelo-dark: #F0C800;
-  --rosa-dark:    #E0607A;
-  --verde-dark:   #70C46A;
-  --azul-dark:    #5A9FD4;
-  --laranja-dark: #E08000;
-
-  --bg: #2C2C2C;
-  --header-bg: #1A1A1A;
-  --text-dark: #333;
+  --amarelo-shadow: #D4B800;
+  --rosa-shadow:    #CC5577;
+  --verde-shadow:   #6DB89A;
+  --azul-shadow:    #4A8FBF;
+  --laranja-shadow: #CC7700;
 }
 
 body {
-  background-color: var(--bg);
-  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
   min-height: 100vh;
+  background: #B0BEC5;
   display: flex;
-  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  padding: 20px;
 }
 
-/* Header */
+/* Geladeira */
+.geladeira {
+  width: 100%;
+  max-width: 1400px;
+  min-height: 92vh;
+  background: linear-gradient(
+    160deg,
+    #F8F9FA 0%,
+    #ECEFF1 30%,
+    #F5F5F5 60%,
+    #ECEFF1 100%
+  );
+  border-radius: 28px;
+  border: 3px solid #CFD8DC;
+  box-shadow:
+    inset 2px 2px 8px rgba(255,255,255,0.9),
+    inset -2px -2px 8px rgba(0,0,0,0.08),
+    6px 6px 30px rgba(0,0,0,0.35),
+    -2px -2px 10px rgba(255,255,255,0.6);
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+}
+
+/* Reflexo metálico */
+.geladeira::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 38%;
+  height: 100%;
+  background: linear-gradient(
+    to right,
+    rgba(255,255,255,0.55) 0%,
+    rgba(255,255,255,0.0) 100%
+  );
+  border-radius: 28px 0 0 28px;
+  pointer-events: none;
+  z-index: 10;
+}
+
+/* Linha divisória da geladeira */
+.geladeira::after {
+  content: '';
+  position: absolute;
+  top: 50%;
+  left: 20px;
+  right: 20px;
+  height: 4px;
+  background: linear-gradient(to right, transparent, #B0BEC5 20%, #B0BEC5 80%, transparent);
+  border-radius: 2px;
+  pointer-events: none;
+  z-index: 5;
+}
+
+/* Header da geladeira */
 .header {
-  background: var(--header-bg);
-  color: #fff;
-  padding: 18px 40px;
   display: flex;
   align-items: center;
   justify-content: space-between;
-  border-bottom: 3px solid #FFE066;
+  padding: 20px 36px 16px;
+  position: relative;
+  z-index: 20;
 }
 
 .logo {
-  font-size: 2rem;
+  font-size: 1.4rem;
   font-weight: 700;
+  color: #546E7A;
   letter-spacing: 1px;
+  text-shadow: 1px 1px 0 rgba(255,255,255,0.8);
 }
 
 .relogio {
-  font-size: 1.8rem;
+  font-size: 1.6rem;
   font-weight: 300;
-  letter-spacing: 2px;
-  color: #ddd;
+  color: #78909C;
+  letter-spacing: 3px;
+  text-shadow: 1px 1px 0 rgba(255,255,255,0.8);
 }
 
-/* Mural */
+/* Mural (área dos post-its) */
 .mural {
   flex: 1;
-  padding: 40px;
+  padding: 30px 40px 50px;
   display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
-  gap: 32px;
+  grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
+  gap: 50px 36px;
   align-content: start;
+  position: relative;
+  z-index: 20;
 }
 
-.carregando {
-  color: #aaa;
-  font-size: 1.5rem;
-  text-align: center;
-  grid-column: 1 / -1;
-  padding: 80px 0;
-}
-
+.carregando,
 .vazio {
-  color: #888;
-  font-size: 1.4rem;
+  color: #90A4AE;
+  font-size: 1.2rem;
   text-align: center;
   grid-column: 1 / -1;
   padding: 80px 0;
@@ -82,63 +134,106 @@ body {
 
 /* Post-it */
 .postit {
-  border-radius: 4px;
-  padding: 28px 26px 36px;
   position: relative;
-  box-shadow: 4px 6px 18px rgba(0, 0, 0, 0.5);
-  transform: rotate(var(--rot));
-  transition: transform 0.3s ease;
-  min-height: 200px;
+  border-radius: 3px;
+  padding: 36px 20px 22px;
   display: flex;
   flex-direction: column;
-  gap: 12px;
+  gap: 10px;
+  min-height: 180px;
+  transform: rotate(var(--rot));
+  transition: transform 0.25s ease, box-shadow 0.25s ease;
+  cursor: default;
 }
 
 .postit:hover {
-  transform: rotate(0deg) scale(1.03);
-  z-index: 10;
+  transform: rotate(0deg) scale(1.05);
+  z-index: 100;
 }
 
-/* Fita adesiva no topo */
+/* Textura de papel */
 .postit::before {
   content: '';
   position: absolute;
-  top: -12px;
-  left: 50%;
-  transform: translateX(-50%);
-  width: 60px;
-  height: 24px;
-  background: rgba(255, 255, 255, 0.4);
-  border-radius: 2px;
+  inset: 0;
+  background-image:
+    repeating-linear-gradient(
+      0deg,
+      transparent,
+      transparent 24px,
+      rgba(0,0,0,0.04) 24px,
+      rgba(0,0,0,0.04) 25px
+    );
+  border-radius: 3px;
+  pointer-events: none;
 }
 
-.postit.amarelo { background: var(--amarelo); border-bottom: 4px solid var(--amarelo-dark); }
-.postit.rosa    { background: var(--rosa);    border-bottom: 4px solid var(--rosa-dark); }
-.postit.verde   { background: var(--verde);   border-bottom: 4px solid var(--verde-dark); }
-.postit.azul    { background: var(--azul);    border-bottom: 4px solid var(--azul-dark); }
-.postit.laranja { background: var(--laranja); border-bottom: 4px solid var(--laranja-dark); }
+.postit.amarelo {
+  background: linear-gradient(145deg, #FFF0A0, var(--amarelo));
+  box-shadow: 3px 4px 14px rgba(0,0,0,0.22), inset 0 -3px 0 var(--amarelo-shadow);
+}
+.postit.rosa {
+  background: linear-gradient(145deg, #FFB3C6, var(--rosa));
+  box-shadow: 3px 4px 14px rgba(0,0,0,0.22), inset 0 -3px 0 var(--rosa-shadow);
+}
+.postit.verde {
+  background: linear-gradient(145deg, #D4F5E6, var(--verde));
+  box-shadow: 3px 4px 14px rgba(0,0,0,0.22), inset 0 -3px 0 var(--verde-shadow);
+}
+.postit.azul {
+  background: linear-gradient(145deg, #C3E4F7, var(--azul));
+  box-shadow: 3px 4px 14px rgba(0,0,0,0.22), inset 0 -3px 0 var(--azul-shadow);
+}
+.postit.laranja {
+  background: linear-gradient(145deg, #FFD080, var(--laranja));
+  box-shadow: 3px 4px 14px rgba(0,0,0,0.22), inset 0 -3px 0 var(--laranja-shadow);
+}
 
+/* Ímã */
+.ima {
+  position: absolute;
+  top: -16px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  z-index: 10;
+  box-shadow:
+    0 3px 8px rgba(0,0,0,0.35),
+    inset 0 -3px 5px rgba(0,0,0,0.25),
+    inset 0 3px 5px rgba(255,255,255,0.5);
+}
+
+.ima.vermelho  { background: radial-gradient(circle at 35% 35%, #FF6B6B, #CC0000); }
+.ima.azul-ima  { background: radial-gradient(circle at 35% 35%, #64B5F6, #1565C0); }
+.ima.verde-ima { background: radial-gradient(circle at 35% 35%, #81C784, #2E7D32); }
+.ima.roxo      { background: radial-gradient(circle at 35% 35%, #CE93D8, #6A1B9A); }
+.ima.laranja-ima { background: radial-gradient(circle at 35% 35%, #FFB74D, #E65100); }
+.ima.prata     { background: radial-gradient(circle at 35% 35%, #ECEFF1, #78909C); }
+
+/* Conteúdo do post-it */
 .postit-tipo {
-  font-size: 1rem;
-  font-weight: 700;
+  font-size: 0.7rem;
+  font-weight: 800;
   text-transform: uppercase;
   letter-spacing: 1px;
-  color: var(--text-dark);
-  opacity: 0.6;
+  color: rgba(0,0,0,0.35);
 }
 
 .postit-titulo {
-  font-size: 1.5rem;
-  font-weight: 700;
-  color: var(--text-dark);
+  font-size: 1.15rem;
+  font-weight: 800;
+  color: rgba(0,0,0,0.75);
   line-height: 1.3;
   word-break: break-word;
+  font-family: 'Segoe UI', sans-serif;
 }
 
 .postit-mensagem {
-  font-size: 1.1rem;
-  color: var(--text-dark);
-  line-height: 1.5;
+  font-size: 0.92rem;
+  color: rgba(0,0,0,0.6);
+  line-height: 1.6;
   flex: 1;
   word-break: break-word;
 }
@@ -147,46 +242,47 @@ body {
   list-style: none;
   display: flex;
   flex-direction: column;
-  gap: 6px;
+  gap: 5px;
 }
 
 .postit-lista li {
-  font-size: 1.05rem;
-  color: var(--text-dark);
+  font-size: 0.88rem;
+  color: rgba(0,0,0,0.65);
   display: flex;
   align-items: center;
-  gap: 8px;
+  gap: 7px;
 }
 
 .postit-lista li::before {
   content: '☐';
-  font-size: 1.1rem;
+  font-size: 0.95rem;
+  color: rgba(0,0,0,0.4);
 }
 
 .postit-horario {
-  font-size: 1rem;
-  font-weight: 600;
-  color: var(--text-dark);
-  background: rgba(0, 0, 0, 0.1);
+  font-size: 0.82rem;
+  font-weight: 700;
+  background: rgba(0,0,0,0.1);
   border-radius: 4px;
-  padding: 4px 10px;
+  padding: 4px 8px;
   display: inline-block;
+  color: rgba(0,0,0,0.65);
 }
 
 .postit-autor {
-  font-size: 0.9rem;
-  color: var(--text-dark);
-  opacity: 0.7;
+  font-size: 0.78rem;
+  color: rgba(0,0,0,0.4);
   font-style: italic;
-  margin-top: auto;
   text-align: right;
+  margin-top: auto;
 }
 
 /* Footer */
 .footer {
-  background: var(--header-bg);
-  color: #888;
   text-align: center;
   padding: 12px;
-  font-size: 0.85rem;
+  color: #90A4AE;
+  font-size: 0.78rem;
+  position: relative;
+  z-index: 20;
 }

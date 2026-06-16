@@ -1,0 +1,192 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+:root {
+  --amarelo: #FFE066;
+  --rosa:    #FF8FAB;
+  --verde:   #A8E6A3;
+  --azul:    #90CAF9;
+  --laranja: #FFAB40;
+
+  --amarelo-dark: #F0C800;
+  --rosa-dark:    #E0607A;
+  --verde-dark:   #70C46A;
+  --azul-dark:    #5A9FD4;
+  --laranja-dark: #E08000;
+
+  --bg: #2C2C2C;
+  --header-bg: #1A1A1A;
+  --text-dark: #333;
+}
+
+body {
+  background-color: var(--bg);
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+}
+
+/* Header */
+.header {
+  background: var(--header-bg);
+  color: #fff;
+  padding: 18px 40px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  border-bottom: 3px solid #FFE066;
+}
+
+.logo {
+  font-size: 2rem;
+  font-weight: 700;
+  letter-spacing: 1px;
+}
+
+.relogio {
+  font-size: 1.8rem;
+  font-weight: 300;
+  letter-spacing: 2px;
+  color: #ddd;
+}
+
+/* Mural */
+.mural {
+  flex: 1;
+  padding: 40px;
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+  gap: 32px;
+  align-content: start;
+}
+
+.carregando {
+  color: #aaa;
+  font-size: 1.5rem;
+  text-align: center;
+  grid-column: 1 / -1;
+  padding: 80px 0;
+}
+
+.vazio {
+  color: #888;
+  font-size: 1.4rem;
+  text-align: center;
+  grid-column: 1 / -1;
+  padding: 80px 0;
+}
+
+/* Post-it */
+.postit {
+  border-radius: 4px;
+  padding: 28px 26px 36px;
+  position: relative;
+  box-shadow: 4px 6px 18px rgba(0, 0, 0, 0.5);
+  transform: rotate(var(--rot));
+  transition: transform 0.3s ease;
+  min-height: 200px;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.postit:hover {
+  transform: rotate(0deg) scale(1.03);
+  z-index: 10;
+}
+
+/* Fita adesiva no topo */
+.postit::before {
+  content: '';
+  position: absolute;
+  top: -12px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 60px;
+  height: 24px;
+  background: rgba(255, 255, 255, 0.4);
+  border-radius: 2px;
+}
+
+.postit.amarelo { background: var(--amarelo); border-bottom: 4px solid var(--amarelo-dark); }
+.postit.rosa    { background: var(--rosa);    border-bottom: 4px solid var(--rosa-dark); }
+.postit.verde   { background: var(--verde);   border-bottom: 4px solid var(--verde-dark); }
+.postit.azul    { background: var(--azul);    border-bottom: 4px solid var(--azul-dark); }
+.postit.laranja { background: var(--laranja); border-bottom: 4px solid var(--laranja-dark); }
+
+.postit-tipo {
+  font-size: 1rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  color: var(--text-dark);
+  opacity: 0.6;
+}
+
+.postit-titulo {
+  font-size: 1.5rem;
+  font-weight: 700;
+  color: var(--text-dark);
+  line-height: 1.3;
+  word-break: break-word;
+}
+
+.postit-mensagem {
+  font-size: 1.1rem;
+  color: var(--text-dark);
+  line-height: 1.5;
+  flex: 1;
+  word-break: break-word;
+}
+
+.postit-lista {
+  list-style: none;
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.postit-lista li {
+  font-size: 1.05rem;
+  color: var(--text-dark);
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.postit-lista li::before {
+  content: '☐';
+  font-size: 1.1rem;
+}
+
+.postit-horario {
+  font-size: 1rem;
+  font-weight: 600;
+  color: var(--text-dark);
+  background: rgba(0, 0, 0, 0.1);
+  border-radius: 4px;
+  padding: 4px 10px;
+  display: inline-block;
+}
+
+.postit-autor {
+  font-size: 0.9rem;
+  color: var(--text-dark);
+  opacity: 0.7;
+  font-style: italic;
+  margin-top: auto;
+  text-align: right;
+}
+
+/* Footer */
+.footer {
+  background: var(--header-bg);
+  color: #888;
+  text-align: center;
+  padding: 12px;
+  font-size: 0.85rem;
+}

@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>PostIt Casa — Display</title>
+  <link rel="stylesheet" href="display.css" />
+</head>
+<body>
+  <header class="header">
+    <div class="header-left">
+      <span class="logo">📌 PostIt Casa</span>
+    </div>
+    <div class="header-right">
+      <span class="relogio" id="relogio"></span>
+    </div>
+  </header>
+
+  <main class="mural" id="mural">
+    <div class="carregando" id="carregando">Carregando bilhetes...</div>
+  </main>
+
+  <footer class="footer">
+    <span id="status">Atualizando a cada 30 segundos</span>
+  </footer>
+
+  <script src="display.js"></script>
+</body>
+</html>
